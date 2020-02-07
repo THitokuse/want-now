@@ -2,7 +2,7 @@
   <v-app-bar app class="header">
     <div class="header-title">
       <v-img class="header-icon" src="https://want-now.s3-ap-northeast-1.amazonaws.com/thumbnail/want-now-logo.png" :width="40" :height="40"/>
-      <v-toolbar-title class="title">Want Now!</v-toolbar-title>
+      <v-img class="title-logo" src="https://want-now.s3-ap-northeast-1.amazonaws.com/thumbnail/logo.png" :width="220" :height="30"/>
     </div>
     <v-spacer />
   </v-app-bar>
@@ -21,9 +21,7 @@ export default {
 .header-title {
   display: flex;
 }
-.title {
-  width: 100%;
-  text-align: center;
-  color: black;
+.title-logo {
+  top: 5px;
 }
 </style>
