@@ -1,12 +1,8 @@
 <template>
   <v-app>
-    <side-bar />
     <Header />
-    <v-content>
-      <v-overlay v-if="loading" :opacity="0.8" :value="loading" absolute>
-        <v-progress-circular :size="50" color="primary" indeterminate />
-      </v-overlay>
-      <v-container v-else>
+    <v-content class="main">
+      <v-container>
         <nuxt />
       </v-container>
     </v-content>
@@ -22,3 +18,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.main {
+  background-color: #f5f5f5;
+}
+</style>
