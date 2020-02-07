@@ -1,10 +1,14 @@
 import colors from 'vuetify/es5/util/colors'
 
+const nodeEnv = `${process.env.NODE_ENV || 'development'}`
+const env = require(`./env.${nodeEnv}.js`)
+
 export default {
   mode: 'spa',
-  /*
-  ** Headers of the page
-  */
+  env: {
+    ...env,
+    NODE_ENV: process.env.NODE_ENV
+  },
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_name,
     title: process.env.npm_package_name || '',
@@ -29,6 +33,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    "~plugins/vue2-google-maps.js"
   ],
   /*
   ** Nuxt.js dev-modules
@@ -44,6 +49,13 @@ export default {
   modules: [
     '@nuxtjs/pwa'
   ],
+
+  axios: {
+    proxy: true
+  },
+  proxy: {
+    '/api': env.baseURL
+  },
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
@@ -69,10 +81,19 @@ export default {
   ** Build configuration
   */
   build: {
-    /*
-    ** You can extend webpack config here
-    */
     extend (config, ctx) {
+      //add for vue2-google-maps
+      if (!ctx.isClient) {
+        // This instructs Webpack to include `vue2-google-maps`'s Vue files
+        // for server-side rendering
+        config.externals.splice(0, 0, function (context, request, callback) {
+          if (/^vue2-google-maps($|\/)/.test(request)) {
+            callback(null, false)
+          } else {
+            callback()
+          }
+        })
+      }
     }
   }
 }
