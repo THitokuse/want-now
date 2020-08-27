@@ -10,6 +10,6 @@
 
 <script>
 export default {
-  test
+  test2
 }
 </script>
